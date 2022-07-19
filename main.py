@@ -1,9 +1,9 @@
-import time, os, platform, webbrowser
+import time, os, platform, webbrowser # imports
 from os.path import exists
 
 plat = platform.system() # get the os
 archie = platform.machine() # get the architeture
-ver = "0.0.2.3" # this builds version
+ver = "0.0.3" # this builds version
 
 homedir = os.getcwd() # set the home directory to the init location
 
@@ -14,22 +14,23 @@ if (plat!="Windows"): # inform the user that touch os was made for windows
         time.sleep(1)
         exit()
 
-toi = exists(homedir + "/tmp")
-if (not toi):
+toi = exists(homedir + "/tmp") # check if tmp folder exists
+if (not toi): # if it doesnt exist, create one
     os.mkdir(homedir + "/tmp")
 
 def check_updates():
     os.chdir("tmp")
-    nve = exists("newver")
+    nve = exists("newver") # check if the file that states the latest version of touch os is downloaded, if it is, delete it
     if (nve):
         os.remove("newver")
-    os.system("curl https://touchcreator.github.io/touchos-needed-file-repo/newver -outfile")
-    os.rename("utfile", "newver")
+    os.system("curl https://touchcreator.github.io/touchos-needed-file-repo/newver -outfile") # download the file that states the latest version
+    os.rename("utfile", "newver") # rename it to what it should be called
+    os.system("cls") # clear the terminal
     filepath = "newver"
     with open(filepath) as fp:
-        for index, line in enumerate(fp):
-            newestver = line.strip()
-    if (newestver!=ver):
+        for index, line in enumerate(fp): # let the "os" know what the latest version is
+            newestver = line.strip() 
+    if (newestver!=ver): # warn the user if their version of touch os isn't the same as the one in the file (kinda hackable)
         veranyway = input("The newest version of Touch OS is version " + newestver + ", but you are using version " + ver + ". Use anyway? (y/n) ")
         if veranyway == "n":
             print("Ok then, opening the github page")
@@ -44,11 +45,11 @@ check_updates()
 os.system("cls")
 print("""
  ______________________
-|   Touch OS 0.0.2.3   |
+|   Touch OS 0.0.3     |
 |                      |
 |    POV: Not an OS    |
 |______________________|
-""")
+""") # coolio logo thingy
 
 da_commands = ["exit", "listfiles", "gotodir", "clear", "host", "say", "run", "passout", "help", "read", "abouthost", "myver", "quine"]
 def read_cmd(cmd):
@@ -96,21 +97,22 @@ def read_cmd(cmd):
             print("That file doesn't exist")
         except PermissionError:
             print("Cannot access that folder right now")
-    elif cmd == "abouthost":
+    elif cmd == "abouthost": # just prints the info about host machine
         print("Host OS: " + plat)
         print("Host Architecture: " + archie)
-    elif cmd == "myver":
+    elif cmd == "myver": # prints the ver variable
         print("Touch OS Version: " + ver)
-    elif cmd == "quine":
+    elif cmd == "quine": # runs the read command on main.py
         os.chdir(homedir)
         read_cmd("read main.py")
         workque = input("Did it work? (y/n) ")
         if workque == "n":
             print("You probably renamed main.py")
 
-    else:
+    else: # if all else fails, the command doesnt exist, print this
         print("That command doesn't exist")
 while True:
-    cwd = os.getcwd()
-    the_cmd = input("touchosuser@" + cwd + ": ")
+    cwd = os.getcwd() # get the cwd
+    hostusername = os.getlogin() # gets the hosts username
+    the_cmd = input(hostusername + "@" + cwd + ": ") # joins username and other stuff to show where youre making the command
     read_cmd(the_cmd)
