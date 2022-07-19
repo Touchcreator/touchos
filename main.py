@@ -1,7 +1,11 @@
-import time, os, platform
+import time, os, platform, webbrowser
+from os.path import exists
 
 plat = platform.system() # get the os
 archie = platform.machine() # get the architeture
+ver = "0.0.2.2" # this builds version
+
+homedir = os.getcwd() # set the home directory to the init location
 
 if (plat!="Windows"): # inform the user that touch os was made for windows
     useanyway = input("Your host OS was detected as " + plat + ". However, Touch OS was designed for Windows. Use anyway? ")
@@ -10,15 +14,43 @@ if (plat!="Windows"): # inform the user that touch os was made for windows
         time.sleep(1)
         exit()
 
+toi = exists(homedir + "/tmp")
+if (not toi):
+    os.mkdir(homedir + "/tmp")
+
+def check_updates():
+    os.chdir("tmp")
+    nve = exists("newver")
+    if (nve):
+        os.remove("newver")
+    os.system("curl https://touchcreator.github.io/touchos-needed-file-repo/newver -outfile")
+    os.rename("utfile", "newver")
+    filepath = "newver"
+    with open(filepath) as fp:
+        for index, line in enumerate(fp):
+            newestver = line.strip()
+    if (newestver!=ver):
+        veranyway = input("The newest version of Touch OS is version " + newestver + ", but you are using version " + ver + ". Use anyway? ")
+        if veranyway == "n":
+            print("Ok then, opening the github page")
+            time.sleep(1)
+            webbrowser.open("https://github.com/Touchcreator/touchos")
+            exit()
+    os.remove("newver")
+    os.chdir("..")
+
+check_updates()
+
+os.system("cls")
 print("""
  ______________________
-|   Touch OS 0.0.2.1   |
+|   Touch OS 0.0.2.2   |
 |                      |
 |    POV: Not an OS    |
 |______________________|
 """)
 
-da_commands = ["exit", "gotodir", "clear", "host", "say", "run", "passout", "help", "read", "abouthost"]
+da_commands = ["exit", "gotodir", "clear", "host", "say", "run", "passout", "help", "read", "abouthost", "myver"]
 def read_cmd(cmd):
     if cmd == "exit":
         exit()
@@ -67,6 +99,8 @@ def read_cmd(cmd):
     elif cmd == "abouthost":
         print("Host OS: " + plat)
         print("Host Architecture: " + archie)
+    elif cmd == "myver":
+        print("Touch OS Version: " + ver)
 
     else:
         print("That command doesn't exist")
