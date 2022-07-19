@@ -50,7 +50,7 @@ print("""
 |______________________|
 """)
 
-da_commands = ["exit", "gotodir", "clear", "host", "say", "run", "passout", "help", "read", "abouthost", "myver"]
+da_commands = ["exit", "listfiles", "gotodir", "clear", "host", "say", "run", "passout", "help", "read", "abouthost", "myver"]
 def read_cmd(cmd):
     if cmd == "exit":
         exit()
