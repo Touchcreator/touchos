@@ -30,7 +30,7 @@ def check_updates():
         for index, line in enumerate(fp):
             newestver = line.strip()
     if (newestver!=ver):
-        veranyway = input("The newest version of Touch OS is version " + newestver + ", but you are using version " + ver + ". Use anyway? (y/n)")
+        veranyway = input("The newest version of Touch OS is version " + newestver + ", but you are using version " + ver + ". Use anyway? (y/n) ")
         if veranyway == "n":
             print("Ok then, opening the github page")
             time.sleep(1)
