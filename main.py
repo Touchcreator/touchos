@@ -3,12 +3,12 @@ from os.path import exists
 
 plat = platform.system() # get the os
 archie = platform.machine() # get the architeture
-ver = "0.0.2.2" # this builds version
+ver = "0.0.2.3" # this builds version
 
 homedir = os.getcwd() # set the home directory to the init location
 
 if (plat!="Windows"): # inform the user that touch os was made for windows
-    useanyway = input("Your host OS was detected as " + plat + ". However, Touch OS was designed for Windows. Use anyway? ")
+    useanyway = input("Your host OS was detected as " + plat + ". However, Touch OS was designed for Windows. Use anyway? (y/n) ")
     if (useanyway == "n"):
         print("Ok then, exiting")
         time.sleep(1)
@@ -30,7 +30,7 @@ def check_updates():
         for index, line in enumerate(fp):
             newestver = line.strip()
     if (newestver!=ver):
-        veranyway = input("The newest version of Touch OS is version " + newestver + ", but you are using version " + ver + ". Use anyway? ")
+        veranyway = input("The newest version of Touch OS is version " + newestver + ", but you are using version " + ver + ". Use anyway? (y/n)")
         if veranyway == "n":
             print("Ok then, opening the github page")
             time.sleep(1)
@@ -44,13 +44,13 @@ check_updates()
 os.system("cls")
 print("""
  ______________________
-|   Touch OS 0.0.2.2   |
+|   Touch OS 0.0.2.3   |
 |                      |
 |    POV: Not an OS    |
 |______________________|
 """)
 
-da_commands = ["exit", "listfiles", "gotodir", "clear", "host", "say", "run", "passout", "help", "read", "abouthost", "myver"]
+da_commands = ["exit", "listfiles", "gotodir", "clear", "host", "say", "run", "passout", "help", "read", "abouthost", "myver", "quine"]
 def read_cmd(cmd):
     if cmd == "exit":
         exit()
@@ -101,6 +101,12 @@ def read_cmd(cmd):
         print("Host Architecture: " + archie)
     elif cmd == "myver":
         print("Touch OS Version: " + ver)
+    elif cmd == "quine":
+        os.chdir(homedir)
+        read_cmd("read main.py")
+        workque = input("Did it work? (y/n) ")
+        if workque == "n":
+            print("You probably renamed main.py")
 
     else:
         print("That command doesn't exist")
