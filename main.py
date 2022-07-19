@@ -18,7 +18,7 @@ print("""
 |______________________|
 """)
 
-da_commands = ["exit", "gotodir", "clear", "host", "say", "run", "passout", "help", "read"]
+da_commands = ["exit", "gotodir", "clear", "host", "say", "run", "passout", "help", "read", "abouthost"]
 def read_cmd(cmd):
     if cmd == "exit":
         exit()
@@ -64,6 +64,9 @@ def read_cmd(cmd):
             print("That file doesn't exist")
         except PermissionError:
             print("Cannot access that folder right now")
+    elif cmd == "abouthost":
+        print("Host OS: " + plat)
+        print("Host Architecture: " + archie)
 
     else:
         print("That command doesn't exist")
