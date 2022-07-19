@@ -1,9 +1,11 @@
 import time, os, platform, webbrowser # imports
 from os.path import exists
 
+os.system("cls")
+
 plat = platform.system() # get the os
 archie = platform.machine() # get the architeture
-ver = "0.0.3" # this builds version
+ver = "0.0.3.1" # this builds version
 
 homedir = os.getcwd() # set the home directory to the init location
 
@@ -45,7 +47,7 @@ check_updates()
 os.system("cls")
 print("""
  ______________________
-|   Touch OS 0.0.3     |
+|   Touch OS 0.0.3.1   |
 |                      |
 |    POV: Not an OS    |
 |______________________|
